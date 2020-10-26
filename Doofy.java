@@ -1,6 +1,8 @@
 package df;
+
 import robocode.*;
-//import java.awt.Color;
+import java.awt.Color;
+import robocode.AdvancedRobot;
 
 // API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
 
@@ -18,7 +20,9 @@ public class Doofy extends Robot
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
 
-		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+        setColors(Color.black,Color.darkGray,Color.lightGray); // body,gun,radar
+		setBulletColor(Color.pink); // bullet color
+		setScanColor(Color.red); // radar color
 
 		// Robot main loop
 		while(true) {
