@@ -12,7 +12,7 @@ Hoje, o mesmo pode ser utilizado tanto em Java quanto em .Net.
 
 ## Tecnologia utilizada neste projeto
 
-:coffe:︎ Java
+:coffee:︎ Java
 
 ## Distributed Version-Control System
 

@@ -20,7 +20,9 @@ public class Doofy extends Robot
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
 
-        setColors(Color.black,Color.darkGray,Color.lightGray); // body,gun,radar
+		setBodyColor(new Color(216, 242, 250));
+		setGunColor(new Color(79, 191, 213));
+		setRadarColor(new Color(68, 123, 213));
 		setBulletColor(Color.pink); // bullet color
 		setScanColor(Color.red); // radar color
 
