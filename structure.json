@@ -1,0 +1,9 @@
+{
+  "name": "Doofy",
+  "tag": "df",
+  "pilot": "Carlos Rodrigo Araújo Fentanes",
+  "mainFile": "Robocode.Solutis/Doofy.java",
+  "supportFiles": [
+    "Robocode.Solutis/Doofy.class"
+  ]
+}
