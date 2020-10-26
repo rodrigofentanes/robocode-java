@@ -1,4 +1,4 @@
-<img src="img/robocode_logo.png" align="center" />
+![robocode logo](img/robocode_logo.png)
 
 # Solutis Talent Sprint 2020
 
@@ -7,7 +7,7 @@ Robô de batalha criado para o Talent Sprint, programa de seleção de jovens ta
 # Sobre o Robocode
 
 O robocode é uma engine avançada para simulação de batalha entre robôs.
-Foi criado por uma divisão da IBM chamada Alpha Works, com a intenção de tornar mais divertido o apredizado das linguagens de programação Java.
+Foi criado por uma divisão da IBM chamada Alpha Works, com a intenção de tornar mais divertido o apredizado da linguagem de programação Java.
 Hoje, o mesmo pode ser utilizado tanto em Java quanto em .Net.
 
 ## Tecnologia utilizada neste projeto
