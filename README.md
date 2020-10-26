@@ -26,7 +26,7 @@ O GitLab foi o sistema escolhido para hospedagem do repositório remoto do nosso
 
 Função tal
 ```java
-codigo
+
 ```
 
 ## Contribuições
