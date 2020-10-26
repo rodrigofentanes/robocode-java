@@ -1,4 +1,4 @@
-<img src="img/robocode_logo.png" align="center" />
+![robocode logo](img/robocode_logo.png)
 
 # Solutis Talent Sprint 2020
 
