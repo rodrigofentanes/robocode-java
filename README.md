@@ -15,8 +15,12 @@ Hoje, o mesmo pode ser utilizado tanto em Java quanto em .Net.
 ## Distributed Version-Control System
 O Git foi a tecnologia utilizada para gerenciar o repositório local deste projeto.
 
+Durante o decorrer do processo não houve necessidade de "3-way merges" apenas "Fast Forward Merges", mas, apesar de não precisar utilizar recursos interessantes como 3-way merge ou precisar resolver conflitos de versionamento mais complexos, eu pude apreder mais sobre criação de páginas README.md e como elas interagem com o navegador.
+
 ## Repository Hosting Service
 O GitLab foi o sistema escolhido para hospedagem do repositório remoto do nosso Robô Doofy. 
+
+Eu nunca havia utilizado o GitLab anteriormente mas aparentemente ele possui caracteristicas interessantes como a possibilidade de configuração de CI, CD e integração aparentemente melhorada com o Kubernetes.
 
 # Robo Doofy
 O nome do Robo criado para este projeto é Doofy e se você pensou no personagem do filme "Todo mundo em pânico" você acertou na mosca! <br>
