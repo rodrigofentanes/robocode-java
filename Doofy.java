@@ -2,14 +2,13 @@ package df;
 
 import robocode.*;
 import java.awt.Color;
-import robocode.AdvancedRobot;
 
 // API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
 
 /**
  * Doofy - a robot by (your name here)
  */
-public class Doofy extends Robot
+public class Doofy extends AdvancedRobot
 {
 	/**
 	 * run: Doofy's default behavior
@@ -30,9 +29,7 @@ public class Doofy extends Robot
 		while(true) {
 			// Replace the next 4 lines with any behavior you would like
 			ahead(100);
-			turnGunRight(360);
-			back(100);
-			turnGunRight(360);
+
 		}
 	}
 
