@@ -36,7 +36,7 @@ Por fim, partindo deste princípio, decidi estudar os códigos e característica
 
 ## Codificação
 Utilizando um array de objetos, analisei os resultados obtidos pelo radar num percurso de 360 graus. Muitas vezes, ao completar uma volta inteira, o radar trouxe resultados duplicados, vide imagem abaixo:
-![resultados repetidos](img/duplicidade-radar.png)
+<br> ![resultados repetidos](img/duplicidade-radar.png)
 
 
 
