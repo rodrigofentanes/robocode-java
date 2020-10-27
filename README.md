@@ -24,7 +24,7 @@ Eu nunca havia utilizado o GitLab anteriormente mas aparentemente ele possui car
 
 # Robo Doofy
 O nome do Robo criado para este projeto é Doofy e se você pensou no personagem do filme "Todo mundo em pânico" você acertou na mosca! <br>
-![Doofy gif](img/tenor.gif) <br> <br>
+<br> ![Doofy gif](img/tenor.gif) <br> <br>
 Eu sei que parece piada, mas, dentro do contexto que irei apresentar neste documento, a referência faz muito sentido, afinal, o indivíduo "mais tonto" e que parece ter a menor capacidade de ser o culpado é, no final das contas, o real assassino.
 
 ## Analise inicial
@@ -35,10 +35,12 @@ Por fim, partindo deste princípio, decidi estudar os códigos e característica
 <br> <br> Ao utilizar todos os sample robots ao mesmo tempo, não foi observado queda de FPS.
 
 ## Codificação
-Função tal
-```java
+Utilizando um array de objetos, analisei os resultados obtidos pelo radar num percurso de 360 graus. Muitas vezes, ao completar uma volta inteira, o radar trouxe resultados duplicados, vide imagem abaixo:
+![resultados repetidos](img/duplicidade-radar.png)
 
-```
+
+
+
 
 ## Analise final
 Para a análise final decidi fazer uma pesquisa no GitLab dos outros participantes do desafio Talent Sprint de 2020, utilizando seus robôs e consequentemente seus códigos para verificar o desempenho de Doofy, observando assim as chances deste obter sucesso.

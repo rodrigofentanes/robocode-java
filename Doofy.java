@@ -6,54 +6,115 @@ import java.awt.Color;
 // API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
 
 /**
- * Doofy - a robot by (your name here)
+ * Doofy - a robot by (Carlos Rodrigo Araújo Fentanes)
  */
 public class Doofy extends AdvancedRobot
 {
-	/**
-	 * run: Doofy's default behavior
-	 */
+	boolean peek;
+	double mapWidth;
+	double mapHeight;
+	double moveAmount;
+	int numb;
+	Enemy[] enemyList;
+	String aleatoryName;
+	int countRadar =-1;
+
 	public void run() {
-		// Initialization of the robot should be put here
-
-		// After trying out your robot, try uncommenting the import at the top,
-		// and the next line:
-
+		// Cores do robo
 		setBodyColor(new Color(216, 242, 250));
 		setGunColor(new Color(79, 191, 213));
 		setRadarColor(new Color(68, 123, 213));
-		setBulletColor(Color.pink); // bullet color
-		setScanColor(Color.red); // radar color
+		setBulletColor(Color.cyan);
+		setScanColor(Color.red);
 
-		// Robot main loop
+		// Definindo limite do mapa.
+		mapWidth = getBattleFieldWidth();
+		mapHeight = getBattleFieldHeight();
+		moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
+		numb = getOthers();
+		enemyList = new Enemy[numb];
+		for (int i=0;i<numb;i++){
+			enemyList[i] = new Enemy();
+			enemyList[i].setName("XXXXT");
+			enemyList[i].setDistance(999999);
+			enemyList[i].setEnergy(999999);
+			out.println("Obj"+i+"iniciado");
+		}
+		out.println("Wid = "+mapWidth+"\nHei = "+mapHeight+"\nMax = "+moveAmount+""+"\nNumb = "+numb+"\nTam Lista = "+enemyList.length+"");
+
+		// Loop principal do robo
 		while(true) {
-			// Replace the next 4 lines with any behavior you would like
-			ahead(100);
-
+			setAhead(moveAmount);
+			setTurnRadarRight(360);
+			setTurnGunRight(90);
+			setTurnLeft(10);
+			execute();
 		}
 	}
 
-	/**
-	 * onScannedRobot: What to do when you see another robot
-	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
-		// Replace the next line with any behavior you would like
-		fire(1);
+		if(countRadar==4){
+			countRadar = -1;
+		}
+		//out.println("\nCountInit: " + countRadar);
+		countRadar = countRadar +1;
+		String enemyName = e.getName();
+		double enemyDistance = e.getDistance();
+		double enemyPower = e.getEnergy();
+		double x = getX();
+		double y = getY();
+		//out.println(enemyName + "\nPower: " + enemyPower + "\nDistancia:" + enemyDistance + "\nX:" + x + "\nY:" + y + "\nCountRadar:" + countRadar +"\n\n");
+
+		enemyList[countRadar].setName(enemyName);
+		enemyList[countRadar].setDistance(enemyDistance);
+		enemyList[countRadar].setEnergy(enemyPower);
+
+		out.println(enemyList[countRadar].getName()+"");
+		out.println(enemyList[countRadar].getDistance()+"");
+		out.println(enemyList[countRadar].getEnergy()+"\n"+countRadar+"\n\n");
+
+
+//		for (int i=0;i<enemyList.length;i++){
+//			if(enemyList[enemyList.length-1].getName()!="XXXXT"){
+//				out.println("array cheio");
+//				for (int j=0;j<enemyList.length;j++){
+//					enemyList[j].setName("XXXXT");
+//					enemyList[j].setDistance(999999);
+//					enemyList[j].setEnergy(999999);
+//					out.println("Obj"+j+"esvaziado");
+//				}
+//			}
+//			if(enemyList[i].getName() == "XXXXT"){
+//				enemyList[i].setName(enemyName);
+//				enemyList[i].setDistance(enemyDistance);
+//				enemyList[i].setEnergy(enemyPower);
+//				out.println(enemyList[i].getName()+"Karine");
+//				out.println(enemyList[i].getDistance()+"Karine");
+//				out.println(enemyList[i].getEnergy()+"Karine"+i+"\n\n");
+//			}
+//		}
+
+		/** Criar e preencher um array para poder calcular qual melhor estratégia a se seguir.
+		 * 	Calcular quantos estão próximos.
+		 * 	ql o mais próximo
+		**/
+
 	}
 
-	/**
-	 * onHitByBullet: What to do when you're hit by a bullet
-	 */
-	public void onHitByBullet(HitByBulletEvent e) {
-		// Replace the next line with any behavior you would like
-		back(10);
+	public void onHitByBullet(HitByBulletEvent event) {
+		out.println("im hit");
 	}
-	
-	/**
-	 * onHitWall: What to do when you hit a wall
-	 */
-	public void onHitWall(HitWallEvent e) {
-		// Replace the next line with any behavior you would like
-		back(20);
-	}	
+
+	public void onHitWall(HitWallEvent event) {
+		double bearingDegrees = event.getBearing();
+		out.println("Ouch, I hit a wall bearing " + bearingDegrees + " degrees.");
+
+	}
+
+	public void onWin(WinEvent e) {
+		for (int i = 0; i < 50; i++) {
+			turnRight(30);
+			turnLeft(30);
+		}
+	}
 }
