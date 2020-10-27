@@ -10,13 +10,11 @@ import java.awt.Color;
  */
 public class Doofy extends AdvancedRobot
 {
-	boolean peek;
 	double mapWidth;
 	double mapHeight;
 	double moveAmount;
-	int numb;
+	int enemyNumber;
 	Enemy[] enemyList;
-	String aleatoryName;
 	int countRadar =-1;
 
 	public void run() {
@@ -31,16 +29,13 @@ public class Doofy extends AdvancedRobot
 		mapWidth = getBattleFieldWidth();
 		mapHeight = getBattleFieldHeight();
 		moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
-		numb = getOthers();
-		enemyList = new Enemy[numb];
-		for (int i=0;i<numb;i++){
-			enemyList[i] = new Enemy();
-			enemyList[i].setName("XXXXT");
-			enemyList[i].setDistance(999999);
-			enemyList[i].setEnergy(999999);
-			out.println("Obj"+i+"iniciado");
-		}
-		out.println("Wid = "+mapWidth+"\nHei = "+mapHeight+"\nMax = "+moveAmount+""+"\nNumb = "+numb+"\nTam Lista = "+enemyList.length+"");
+
+		//Verifica quantidade de inimigos
+		enemyNumber = getOthers();
+
+		//Inicializa o array de objetos
+		enemyList = new Enemy[enemyNumber];
+		initializeArrayObj(enemyList);
 
 		// Loop principal do robo
 		while(true) {
@@ -54,55 +49,32 @@ public class Doofy extends AdvancedRobot
 
 	public void onScannedRobot(ScannedRobotEvent e) {
 		if(countRadar==4){
+
 			countRadar = -1;
 		}
-		//out.println("\nCountInit: " + countRadar);
 		countRadar = countRadar +1;
+
 		String enemyName = e.getName();
 		double enemyDistance = e.getDistance();
 		double enemyPower = e.getEnergy();
-		double x = getX();
-		double y = getY();
-		//out.println(enemyName + "\nPower: " + enemyPower + "\nDistancia:" + enemyDistance + "\nX:" + x + "\nY:" + y + "\nCountRadar:" + countRadar +"\n\n");
 
 		enemyList[countRadar].setName(enemyName);
 		enemyList[countRadar].setDistance(enemyDistance);
 		enemyList[countRadar].setEnergy(enemyPower);
-
-		out.println(enemyList[countRadar].getName()+"");
-		out.println(enemyList[countRadar].getDistance()+"");
-		out.println(enemyList[countRadar].getEnergy()+"\n"+countRadar+"\n\n");
-
-
-//		for (int i=0;i<enemyList.length;i++){
-//			if(enemyList[enemyList.length-1].getName()!="XXXXT"){
-//				out.println("array cheio");
-//				for (int j=0;j<enemyList.length;j++){
-//					enemyList[j].setName("XXXXT");
-//					enemyList[j].setDistance(999999);
-//					enemyList[j].setEnergy(999999);
-//					out.println("Obj"+j+"esvaziado");
-//				}
-//			}
-//			if(enemyList[i].getName() == "XXXXT"){
-//				enemyList[i].setName(enemyName);
-//				enemyList[i].setDistance(enemyDistance);
-//				enemyList[i].setEnergy(enemyPower);
-//				out.println(enemyList[i].getName()+"Karine");
-//				out.println(enemyList[i].getDistance()+"Karine");
-//				out.println(enemyList[i].getEnergy()+"Karine"+i+"\n\n");
-//			}
-//		}
-
-		/** Criar e preencher um array para poder calcular qual melhor estratégia a se seguir.
-		 * 	Calcular quantos estão próximos.
-		 * 	ql o mais próximo
-		**/
-
 	}
 
 	public void onHitByBullet(HitByBulletEvent event) {
 		out.println("im hit");
+	}
+
+	public Enemy[] initializeArrayObj(Enemy[] obj){
+		for (int i=0;i<obj.length;i++){
+			obj[i] = new Enemy();
+			obj[i].setName("XXXXT");
+			obj[i].setDistance(999999);
+			obj[i].setEnergy(999999);
+		}
+		return obj;
 	}
 
 	public void onHitWall(HitWallEvent event) {
