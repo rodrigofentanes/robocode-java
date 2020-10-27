@@ -4,6 +4,8 @@
   "pilot": "Carlos Rodrigo Araújo Fentanes",
   "mainFile": "/Doofy.java",
   "supportFiles": [
-    "/Doofy.class"
+    "/Doofy.class",
+    "/Enemy.class",
+    "/Enemy.java"
   ]
 }
