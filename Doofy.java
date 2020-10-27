@@ -33,9 +33,8 @@ public class Doofy extends AdvancedRobot
 		//Verifica quantidade de inimigos
 		enemyNumber = getOthers();
 
-		//Inicializa o array de objetos
+		//instanciando obj Enemy
 		enemyList = new Enemy[enemyNumber];
-		initializeArrayObj(enemyList);
 
 		// Loop principal do robo
 		while(true) {
@@ -48,33 +47,23 @@ public class Doofy extends AdvancedRobot
 	}
 
 	public void onScannedRobot(ScannedRobotEvent e) {
-		if(countRadar==4){
-
+		if(countRadar>=enemyNumber-1){
 			countRadar = -1;
 		}
-		countRadar = countRadar +1;
+		countRadar = countRadar + 1;
 
-		String enemyName = e.getName();
-		double enemyDistance = e.getDistance();
-		double enemyPower = e.getEnergy();
-
-		enemyList[countRadar].setName(enemyName);
-		enemyList[countRadar].setDistance(enemyDistance);
-		enemyList[countRadar].setEnergy(enemyPower);
+		registryRadarInfo(enemyList, countRadar, e.getName(), e.getDistance(), e.getEnergy());
 	}
 
 	public void onHitByBullet(HitByBulletEvent event) {
 		out.println("im hit");
 	}
 
-	public Enemy[] initializeArrayObj(Enemy[] obj){
-		for (int i=0;i<obj.length;i++){
-			obj[i] = new Enemy();
-			obj[i].setName("XXXXT");
-			obj[i].setDistance(999999);
-			obj[i].setEnergy(999999);
-		}
-		return obj;
+	public void registryRadarInfo (Enemy[] obj, int i, String name, double distance, double energy){
+		obj[i] = new Enemy();
+		obj[i].setName(name);
+		obj[i].setDistance(distance);
+		obj[i].setEnergy(energy);
 	}
 
 	public void onHitWall(HitWallEvent event) {
