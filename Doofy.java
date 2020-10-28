@@ -11,13 +11,13 @@ import java.awt.Color;
 public class Doofy extends AdvancedRobot
 {
     //DOOFY
-	double mapWidth;
-	double mapHeight;
-	int enemyNumber;
-	Enemy[] enemyList;
-	int countRadar;
-	String hereIAm;
-	String myZone;
+    double mapWidth;
+    double mapHeight;
+    int enemyNumber;
+    Enemy[] enemyList;
+    int countRadar;
+    String hereIAm;
+    String myZone;
     //DOOFY
 
     //WALLS
@@ -25,22 +25,22 @@ public class Doofy extends AdvancedRobot
     double moveAmount; // How much to move
     //WALLS
 
-	public void run() {
-		//DOOFY
-	    // Cores do robo
-		setBodyColor(new Color(216, 242, 250));
-		setGunColor(new Color(79, 191, 213));
-		setRadarColor(new Color(68, 123, 213));
-		setBulletColor(Color.cyan);
-		setScanColor(Color.red);
-		// Definindo limite do mapa.
-		mapWidth = getBattleFieldWidth();
-		mapHeight = getBattleFieldHeight();
-		//Verifica quantidade de inimigos
-		enemyNumber = getOthers();
-		//instanciando obj Enemy
-		enemyList = new Enemy[enemyNumber];
-		//inicia countRadar
+    public void run() {
+        //DOOFY
+        // Cores do robo
+        setBodyColor(new Color(216, 242, 250));
+        setGunColor(new Color(79, 191, 213));
+        setRadarColor(new Color(68, 123, 213));
+        setBulletColor(Color.cyan);
+        setScanColor(Color.red);
+        // Definindo limite do mapa.
+        mapWidth = getBattleFieldWidth();
+        mapHeight = getBattleFieldHeight();
+        //Verifica quantidade de inimigos
+        enemyNumber = getOthers();
+        //instanciando obj Enemy
+        enemyList = new Enemy[enemyNumber];
+        //inicia countRadar
         countRadar = -1;
         //DOOFY
 
@@ -51,7 +51,7 @@ public class Doofy extends AdvancedRobot
         peek = false;
         //WALLS
 
-		while(true) {
+        while(true) {
             setTurnRadarRight(3800);
             hereIAm = whereAmI(getX(),getY(), mapWidth, mapHeight);
             if (hereIAm != "middle"){
@@ -61,47 +61,47 @@ public class Doofy extends AdvancedRobot
             }
 
 
-		}
-	}
+        }
+    }
 
-	public void onScannedRobot(ScannedRobotEvent e) {
+    public void onScannedRobot(ScannedRobotEvent e) {
         hereIAm = whereAmI(getX(),getY(), mapWidth, mapHeight);
         myZone = whatIsMyZone(getX(),getY(), mapWidth, mapHeight);
         out.print("\n"+getX()+" ------"+getY()+"\n");
         out.println("local: ---- "+hereIAm+"\n");
         out.println("local: ---- "+myZone+"\n");
 
-	    countRadar = enemyArrayPosition(countRadar, enemyNumber);
-		fillEnemyArray(enemyList, countRadar, e.getName(), e.getDistance(), e.getEnergy());
-	}
+        countRadar = enemyArrayPosition(countRadar, enemyNumber);
+        fillEnemyArray(enemyList, countRadar, e.getName(), e.getDistance(), e.getEnergy());
+    }
 
-	public void onHitRobot(HitRobotEvent e) {
-		// If he's in front of us, set back up a bit.
-		if (e.getBearing() > -90 && e.getBearing() < 90) {
+    public void onHitRobot(HitRobotEvent e) {
+        // If he's in front of us, set back up a bit.
+        if (e.getBearing() > -90 && e.getBearing() < 90) {
             back(100);
             reverseSpiningBehavior();
-		} // else he's in back of us, so set ahead a bit.
-		else {
-			ahead(100);
-			reverseSpiningBehavior();
-		}
-	}
+        } // else he's in back of us, so set ahead a bit.
+        else {
+            ahead(100);
+            reverseSpiningBehavior();
+        }
+    }
 
-	public void onHitByBullet(HitByBulletEvent event) {
-	    reverseSpiningBehavior();
-	}
+    public void onHitByBullet(HitByBulletEvent event) {
+        reverseSpiningBehavior();
+    }
 
-	public void onHitWall(HitWallEvent event) {
-	}
+    public void onHitWall(HitWallEvent event) {
+    }
 
-	public void onWin(WinEvent e) {
-		for (int i = 0; i < 50; i++) {
-			turnRight(30);
-			turnLeft(30);
-		}
-	}
+    public void onWin(WinEvent e) {
+        for (int i = 0; i < 50; i++) {
+            turnRight(30);
+            turnLeft(30);
+        }
+    }
 
-	//DOOFY
+    //DOOFY
     public int enemyArrayPosition (int i, int j){
         if(i>=(j-1)){
             i = -1;
@@ -118,9 +118,9 @@ public class Doofy extends AdvancedRobot
     }
 
     public String whereAmI (double x, double y, double width, double height){
-	    String position = "middle";
-	    int borderLimit = 80;
-	    if (x<=borderLimit){
+        String position = "middle";
+        int borderLimit = 80;
+        if (x<=borderLimit){
             position = "left";
             out.print(x);
         }
@@ -163,8 +163,8 @@ public class Doofy extends AdvancedRobot
     }
 
     public void spiningBehavior (){
-	    setTurnLeft(180);
-	    setAhead(200);
+        setTurnLeft(180);
+        setAhead(200);
         execute();
     }
 
