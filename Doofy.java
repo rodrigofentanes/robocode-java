@@ -13,17 +13,21 @@ public class Doofy extends AdvancedRobot
     //DOOFY -----------------------------------------------------------
     double mapWidth;
     double mapHeight;
-    int enemyNumber;
+    int numberOfEnemies;
     Enemy[] enemyList;
     int countRadar;
     String hereIAm;
     String myZone;
-    //DOOFY -----------------------------------------------------------
+    String mostCloserEnemy;
+    boolean fullVector;
+
+    int c;
+    //DOOFY **************************************************************
 
     //WALLS -----------------------------------------------------------
-    boolean peek; // Don't turn if there's a robot there
-    double moveAmount; // How much to move
-    //WALLS -----------------------------------------------------------
+    boolean peek; // dê uma espiada e nao vire caso veja um robo.
+    double moveAmount;
+    //WALLS **************************************************************
 
     public void run() {
         //DOOFY -----------------------------------------------------------
@@ -36,44 +40,62 @@ public class Doofy extends AdvancedRobot
         // Definindo limite do mapa.
         mapWidth = getBattleFieldWidth();
         mapHeight = getBattleFieldHeight();
-        //Verifica quantidade de inimigos
-        enemyNumber = getOthers();
-        //instanciando obj Enemy
-        enemyList = new Enemy[enemyNumber];
-        //inicia countRadar
+        //Verifica quantidade de inimigos.
+        numberOfEnemies = getOthers();
+        //instanciando obj Enemy.
+        enemyList = new Enemy[numberOfEnemies];
+        enemyList[0] = null;
+        //inicia countRadar.
         countRadar = -1;
-        //DOOFY -----------------------------------------------------------
+        //inicializar fullVector
+        fullVector = false;
+        c=0;
+        //DOOFY **************************************************************
 
         //WALLS -----------------------------------------------------------
-        // Initialize moveAmount to the maximum possible for this battlefield.
+        // Utiliza a funcao nativa do Java para determinar qual o tamanho maximo da tela.
         moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
         // Initialize peek to false
         peek = false;
-        //WALLS -----------------------------------------------------------
+        //WALLS **************************************************************
 
         while(true) {
-            setTurnRadarRight(3800);
-            hereIAm = whereAmI(getX(),getY(), mapWidth, mapHeight);
-            if (hereIAm == "middle"){
+            setTurnRadarRight(3800); //manter radar girando
+            hereIAm = Referential.whereAmI(getX(),getY(), mapWidth, mapHeight); //define se o robo está no meio, embaixo, acima, direita ou esquerda.
+            if (hereIAm == "middle"){ //caso esteja no meio, gire.
                 spiningBehavior();
             }else {
-                wallingBehavior();
+                wallingBehavior(); //caso esteja em qualquer lugar que não seja o meio, espreite pelas laterais.
             }
         }
     }
 
     public void onScannedRobot(ScannedRobotEvent e) {
-        countRadar = enemyArrayPosition(countRadar, enemyNumber);
-        fillEnemyArray(enemyList, countRadar, e.getName(), e.getDistance(), e.getEnergy());
+//        c++;
+//        out.println(c);
+//        out.println("enemy antes:"+enemyList[0]+"\n");
+//        out.println("Countradar antes:"+countRadar+"\n");
+//        out.println("Countradar meio:"+countRadar+"\n");
+        countRadar = Enemy.enemyArrayPosition(countRadar, numberOfEnemies);
+//        out.println("Countradar depois:"+countRadar+"\n");
+        enemyList[countRadar] = Enemy.fillEnemyArray(enemyList, countRadar, e.getName(), e.getDistance(), e.getEnergy());
+//        out.println("enemy depois:"+enemyList[countRadar].getName()+"\n");
+        if (countRadar==0){
+            mostCloserEnemy = Enemy.checkMostCloser(enemyList, numberOfEnemies, moveAmount);
+            out.println(mostCloserEnemy+" AAAAAAAAA\n");
+//            out.println("--- \n\n\n");
+        }
+
+
     }
 
     public void onHitRobot(HitRobotEvent e) {
-        // If he's in front of us, set back up a bit.
+        // If he's in front of us, set back up and turn left a bit.
         if (e.getBearing() > -90 && e.getBearing() < 90) {
             setTurnLeft(40);
             back(120);
             reverseSpiningBehavior();
-        } // else he's in back of us, so set ahead a bit.
+        } // else he's in back of us, so set ahead and turn left a bit.
         else {
             setTurnLeft(40);
             ahead(120);
@@ -82,7 +104,7 @@ public class Doofy extends AdvancedRobot
     }
 
     public void onHitByBullet(HitByBulletEvent event) {
-        myZone = whatIsMyZone(getX(),getY(),mapWidth,mapHeight);
+        myZone = Referential.whatIsMyZone(getX(),getY(),mapWidth,mapHeight);
         if (myZone=="red"){
             turnRight(90);
             setTurnLeft(40);
@@ -96,73 +118,18 @@ public class Doofy extends AdvancedRobot
     }
 
     public void onWin(WinEvent e) {
+        //dancar um pagodinho quando vencer!
         for (int i = 0; i < 50; i++) {
-            turnRight(30);
-            turnLeft(30);
+            turnRight(40);
+            back(100);
+            turnLeft(-80);
+            ahead(100);
+            back(100);
+            turnRight(80);
+            ahead(100);
         }
     }
-
-    //DOOFY -----------------------------------------------------------
-    public int enemyArrayPosition (int i, int j){
-        if(i>=(j-1)){
-            i = -1;
-        }
-        i = (i+1);
-        return i;
-    }
-
-    public void fillEnemyArray (Enemy[] obj, int i, String name, double distance, double energy){
-        obj[i] = new Enemy();
-        obj[i].setName(name);
-        obj[i].setDistance(distance);
-        obj[i].setEnergy(energy);
-    }
-
-    public String whereAmI (double x, double y, double width, double height){
-        String position = "middle";
-        int borderLimit = 80;
-        if (x<=borderLimit){
-            position = "left";
-            out.print(x);
-        }
-        if ((width-x)<=borderLimit){
-            position = "right";
-            out.print((width-x));
-        }
-        if (y<=borderLimit){
-            position = "bottom";
-            out.print(y);
-        }
-        if ((height-y)<=borderLimit){
-            position = "top";
-            out.print((width-y));
-        }
-        return position;
-    }
-
-    public String whatIsMyZone (double x, double y, double width, double height){
-        String position = "green";
-        int borderLimit = 10;
-        out.print("\n"+x+"----"+y+"\n");
-        if (x<=borderLimit || y<=borderLimit){
-            position = "red";
-            out.print(x);
-        }
-        if ((height-y)<=borderLimit || x<=borderLimit){
-            position = "red";
-            out.print((width-y));
-        }
-        if ((width-x)<=borderLimit || (height-y)<=borderLimit){
-            position = "red";
-            out.print((width-x));
-        }
-        if (y<=borderLimit || (width-x)<=borderLimit){
-            position = "red";
-            out.print(y);
-        }
-        return position;
-    }
-
+    //DOOFY BEHAVIORS -----------------------------------------------------------
     public void spiningBehavior (){
         setTurnLeft(180);
         setAhead(200);
@@ -182,12 +149,17 @@ public class Doofy extends AdvancedRobot
         turnLeft(getHeading() % 90);
         // Look before we turn when ahead() completes.
         peek = true;
-        // Move up the wall
+        // Move up the wall.
         ahead(moveAmount);
-        // Don't look now
+        // Don't look now.
         peek = false;
-        // Turn to the next wall
+        // Turn to the next wall.
         turnRight(90);
     }
-    //DOOFY -----------------------------------------------------------
+    //DOOFY BEHAVIORS **************************************************************
+
+
+    //DOOFY DOCKER TO OWN CLASS -----------------------------------------------------------
+
+    //DOOFY DOCKER TO OWN CLASS **************************************************************
 }
