@@ -5,7 +5,7 @@ Robô de batalha criado para o Talent Sprint, programa de seleção de jovens ta
 
 ## Sobre o Robocode
 O robocode é uma engine avançada para simulação de batalha entre robôs.
-Foi criado por uma divisão da IBM chamada Alpha Works, com a intenção de tornar mais divertido o apredizado da linguagem de programação Java.
+Foi criado por uma divisão da IBM chamada Alpha Works, com a intenção de tornar mais divertido o aprendizado da linguagem de programação Java.
 Hoje, o mesmo pode ser utilizado tanto em Java quanto em .Net.
 
 ## Tecnologias utilizadas neste projeto
@@ -15,10 +15,11 @@ Hoje, o mesmo pode ser utilizado tanto em Java quanto em .Net.
 ## Distributed Version-Control System
 O Git foi a tecnologia utilizada para gerenciar o repositório local deste projeto.
 
-Durante o decorrer do processo não houve necessidade de "3-way merges" apenas "Fast Forward Merges", mas, apesar de não precisar utilizar recursos interessantes como 3-way merge ou precisar resolver conflitos de versionamento mais complexos, eu pude apreder mais sobre criação de páginas README.md e como elas interagem com o navegador.
+<strong>Nota:</strong> Durante o decorrer do processo não houve necessidade de "3-way merges" apenas "Fast Forward Merges", mas, apesar de não precisar utilizar recursos interessantes como 3-way merge ou precisar resolver conflitos de versionamento mais complexos, eu pude colocar em dia o hábito de trabalhar com o Git.
 
 ## Repository Hosting Service
-O GitLab foi o sistema escolhido para hospedagem do repositório remoto do nosso Robô Doofy. 
+O GitLab foi o sistema escolhido para hospedagem do repositório remoto do nosso Robô Doofy.
+ 
 
 Eu nunca havia utilizado o GitLab anteriormente mas aparentemente ele possui caracteristicas interessantes como a possibilidade de configuração de CI, CD e integração aparentemente melhorada com o Kubernetes.
 
