@@ -2,6 +2,8 @@ package df;
 
 import robocode.*;
 import java.awt.Color;
+import robocode.util.*;
+import java.awt.geom.*;
 
 // API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
 
@@ -21,6 +23,7 @@ public class Doofy extends AdvancedRobot
     String mostCloserEnemy;
     boolean fullVector;
     boolean existence;
+    double oldEnemyHeading;
     //DOOFY **************************************************************
 
     //WALLS -----------------------------------------------------------
@@ -48,14 +51,7 @@ public class Doofy extends AdvancedRobot
         countRadar = -1;
         //inicializar fullVector
         fullVector = false;
-        //inicializar objeto
-//        for (int i=0;i<=numberOfEnemies-1;i++){
-//            enemyList[i].setName(null)=;
-//            enemyList[i].setDistance(0);
-//            enemyList[i].setEnergy(0);
-//        }
-//        Enemy.printAllObj(enemyList,numberOfEnemies);
-
+        double oldEnemyHeading=0;
         //DOOFY **************************************************************
 
         //WALLS -----------------------------------------------------------
@@ -77,33 +73,61 @@ public class Doofy extends AdvancedRobot
     }
 
     public void onScannedRobot(ScannedRobotEvent e) {
-        //reseta existence
-        existence = false;
-        //verifica se o objeto já existe no array
-        existence = Enemy.verifyExistence(enemyList, countRadar,numberOfEnemies, e.getName());
-        out.println("EXISTENCE --------------- "+existence);
-        out.println("ACTUAL ENEMY --------------- "+e.getName());
-        if(!existence){
-            //atualiza o contador do radar(ponteiro).
-            out.println("ANTERIOR POINTER --------------- "+countRadar);
-            countRadar = Enemy.enemyArrayPosition(countRadar, numberOfEnemies);
-            enemyList[countRadar] = Enemy.fillEnemyArray(enemyList, countRadar,numberOfEnemies, e.getName(), e.getDistance(), e.getEnergy());
-            String enemy = enemyList[countRadar].getName();
-            out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ARRAY POSITION "+countRadar);
-            out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ENAMY NAME"+enemy);
-        }
-        if (countRadar==numberOfEnemies-1){
-            mostCloserEnemy = Enemy.checkMostCloser(enemyList, numberOfEnemies,moveAmount);
-            out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX MOST CLOSE"+mostCloserEnemy);
-        }
+        double bulletPower = Math.min(1.0,getEnergy());
+        double myX = getX();
+        double myY = getY();
+        double absoluteBearing = getHeadingRadians() + e.getBearingRadians();
+        double enemyX = getX() + e.getDistance() * Math.sin(absoluteBearing);
+        double enemyY = getY() + e.getDistance() * Math.cos(absoluteBearing);
+        double enemyHeading = e.getHeadingRadians();
+        double enemyHeadingChange = enemyHeading - oldEnemyHeading;
+        double enemyVelocity = e.getVelocity();
+        oldEnemyHeading = enemyHeading;
 
+        double deltaTime = 0;
+        double battleFieldHeight = getBattleFieldHeight(),
+                battleFieldWidth = getBattleFieldWidth();
+        double predictedX = enemyX, predictedY = enemyY;
+        while((++deltaTime) * (20.0 - 3.0 * bulletPower) <
+                Point2D.Double.distance(myX, myY, predictedX, predictedY)){
+            predictedX += Math.sin(enemyHeading) * enemyVelocity;
+            predictedY += Math.cos(enemyHeading) * enemyVelocity;
+            enemyHeading += enemyHeadingChange;
+            if(	predictedX < 18.0
+                    || predictedY < 18.0
+                    || predictedX > battleFieldWidth - 18.0
+                    || predictedY > battleFieldHeight - 18.0){
+
+                predictedX = Math.min(Math.max(18.0, predictedX),
+                        battleFieldWidth - 18.0);
+                predictedY = Math.min(Math.max(18.0, predictedY),
+                        battleFieldHeight - 18.0);
+                break;
+            }
+        }
+        double theta = Utils.normalAbsoluteAngle(Math.atan2(
+                predictedX - getX(), predictedY - getY()));
+
+        setTurnRadarRightRadians(Utils.normalRelativeAngle(
+                absoluteBearing - getRadarHeadingRadians()));
+        setTurnGunRightRadians(Utils.normalRelativeAngle(
+                theta - getGunHeadingRadians()));
+        fire(3);
     }
 
 
+    public void aim( double radarHeadingRadians, double gunHeadingRadians){
+        double radarTurn = normalRelativeAngleDegrees(getHeadingRadians());
+        double gunTurn = normalRelativeAngleDegrees(getHeadingRadians());
+
+        setTurnRadarRightRadians(radarTurn);
+        setTurnGunRightRadians(gunTurn);
+    }
 
 
-
-
+    public static double normalRelativeAngleDegrees(double angle) {
+        return (angle %= 360.0D) >= 0.0D ? (angle < 180.0D ? angle : angle - 360.0D) : (angle >= -180.0D ? angle : angle + 360.0D);
+    }
 
 
 
