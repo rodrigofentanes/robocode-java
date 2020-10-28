@@ -10,7 +10,7 @@ import java.awt.Color;
  */
 public class Doofy extends AdvancedRobot
 {
-    //DOOFY
+    //DOOFY -----------------------------------------------------------
     double mapWidth;
     double mapHeight;
     int enemyNumber;
@@ -18,15 +18,15 @@ public class Doofy extends AdvancedRobot
     int countRadar;
     String hereIAm;
     String myZone;
-    //DOOFY
+    //DOOFY -----------------------------------------------------------
 
-    //WALLS
+    //WALLS -----------------------------------------------------------
     boolean peek; // Don't turn if there's a robot there
     double moveAmount; // How much to move
-    //WALLS
+    //WALLS -----------------------------------------------------------
 
     public void run() {
-        //DOOFY
+        //DOOFY -----------------------------------------------------------
         // Cores do robo
         setBodyColor(new Color(216, 242, 250));
         setGunColor(new Color(79, 191, 213));
@@ -42,35 +42,27 @@ public class Doofy extends AdvancedRobot
         enemyList = new Enemy[enemyNumber];
         //inicia countRadar
         countRadar = -1;
-        //DOOFY
+        //DOOFY -----------------------------------------------------------
 
-        //WALLS
+        //WALLS -----------------------------------------------------------
         // Initialize moveAmount to the maximum possible for this battlefield.
         moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
         // Initialize peek to false
         peek = false;
-        //WALLS
+        //WALLS -----------------------------------------------------------
 
         while(true) {
             setTurnRadarRight(3800);
             hereIAm = whereAmI(getX(),getY(), mapWidth, mapHeight);
-            if (hereIAm != "middle"){
-                wallingBehavior();
-            }else {
+            if (hereIAm == "middle"){
                 spiningBehavior();
+            }else {
+                wallingBehavior();
             }
-
-
         }
     }
 
     public void onScannedRobot(ScannedRobotEvent e) {
-        hereIAm = whereAmI(getX(),getY(), mapWidth, mapHeight);
-        myZone = whatIsMyZone(getX(),getY(), mapWidth, mapHeight);
-        out.print("\n"+getX()+" ------"+getY()+"\n");
-        out.println("local: ---- "+hereIAm+"\n");
-        out.println("local: ---- "+myZone+"\n");
-
         countRadar = enemyArrayPosition(countRadar, enemyNumber);
         fillEnemyArray(enemyList, countRadar, e.getName(), e.getDistance(), e.getEnergy());
     }
@@ -78,17 +70,26 @@ public class Doofy extends AdvancedRobot
     public void onHitRobot(HitRobotEvent e) {
         // If he's in front of us, set back up a bit.
         if (e.getBearing() > -90 && e.getBearing() < 90) {
-            back(100);
+            setTurnLeft(40);
+            back(120);
             reverseSpiningBehavior();
         } // else he's in back of us, so set ahead a bit.
         else {
-            ahead(100);
+            setTurnLeft(40);
+            ahead(120);
             reverseSpiningBehavior();
         }
     }
 
     public void onHitByBullet(HitByBulletEvent event) {
-        reverseSpiningBehavior();
+        myZone = whatIsMyZone(getX(),getY(),mapWidth,mapHeight);
+        if (myZone=="red"){
+            turnRight(90);
+            setTurnLeft(40);
+            ahead(200);
+        }else {
+            reverseSpiningBehavior();
+        }
     }
 
     public void onHitWall(HitWallEvent event) {
@@ -101,7 +102,7 @@ public class Doofy extends AdvancedRobot
         }
     }
 
-    //DOOFY
+    //DOOFY -----------------------------------------------------------
     public int enemyArrayPosition (int i, int j){
         if(i>=(j-1)){
             i = -1;
@@ -141,9 +142,9 @@ public class Doofy extends AdvancedRobot
 
     public String whatIsMyZone (double x, double y, double width, double height){
         String position = "green";
-        int borderLimit = 30;
+        int borderLimit = 10;
         out.print("\n"+x+"----"+y+"\n");
-        if (x<=borderLimit || y<=100){
+        if (x<=borderLimit || y<=borderLimit){
             position = "red";
             out.print(x);
         }
@@ -169,7 +170,7 @@ public class Doofy extends AdvancedRobot
     }
 
     public void reverseSpiningBehavior (){
-        setTurnRight(200);
+        setTurnRight(120);
         setAhead(300);
         execute();
     }
@@ -188,5 +189,5 @@ public class Doofy extends AdvancedRobot
         // Turn to the next wall
         turnRight(90);
     }
-    //DOOFY
+    //DOOFY -----------------------------------------------------------
 }
