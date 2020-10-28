@@ -20,8 +20,7 @@ public class Doofy extends AdvancedRobot
     String myZone;
     String mostCloserEnemy;
     boolean fullVector;
-
-    int c;
+    boolean existence;
     //DOOFY **************************************************************
 
     //WALLS -----------------------------------------------------------
@@ -49,7 +48,14 @@ public class Doofy extends AdvancedRobot
         countRadar = -1;
         //inicializar fullVector
         fullVector = false;
-        c=0;
+        //inicializar objeto
+//        for (int i=0;i<=numberOfEnemies-1;i++){
+//            enemyList[i].setName(null)=;
+//            enemyList[i].setDistance(0);
+//            enemyList[i].setEnergy(0);
+//        }
+//        Enemy.printAllObj(enemyList,numberOfEnemies);
+
         //DOOFY **************************************************************
 
         //WALLS -----------------------------------------------------------
@@ -71,23 +77,50 @@ public class Doofy extends AdvancedRobot
     }
 
     public void onScannedRobot(ScannedRobotEvent e) {
-//        c++;
-//        out.println(c);
-//        out.println("enemy antes:"+enemyList[0]+"\n");
-//        out.println("Countradar antes:"+countRadar+"\n");
-//        out.println("Countradar meio:"+countRadar+"\n");
-        countRadar = Enemy.enemyArrayPosition(countRadar, numberOfEnemies);
-//        out.println("Countradar depois:"+countRadar+"\n");
-        enemyList[countRadar] = Enemy.fillEnemyArray(enemyList, countRadar, e.getName(), e.getDistance(), e.getEnergy());
-//        out.println("enemy depois:"+enemyList[countRadar].getName()+"\n");
-        if (countRadar==0){
-            mostCloserEnemy = Enemy.checkMostCloser(enemyList, numberOfEnemies, moveAmount);
-            out.println(mostCloserEnemy+" AAAAAAAAA\n");
-//            out.println("--- \n\n\n");
+        //reseta existence
+        existence = false;
+        //verifica se o objeto já existe no array
+        existence = Enemy.verifyExistence(enemyList, countRadar,numberOfEnemies, e.getName());
+        out.println("EXISTENCE --------------- "+existence);
+        out.println("ACTUAL ENEMY --------------- "+e.getName());
+        if(!existence){
+            //atualiza o contador do radar(ponteiro).
+            out.println("ANTERIOR POINTER --------------- "+countRadar);
+            countRadar = Enemy.enemyArrayPosition(countRadar, numberOfEnemies);
+            enemyList[countRadar] = Enemy.fillEnemyArray(enemyList, countRadar,numberOfEnemies, e.getName(), e.getDistance(), e.getEnergy());
+            String enemy = enemyList[countRadar].getName();
+            out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ARRAY POSITION "+countRadar);
+            out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ENAMY NAME"+enemy);
+        }
+        if (countRadar==numberOfEnemies-1){
+            mostCloserEnemy = Enemy.checkMostCloser(enemyList, numberOfEnemies,moveAmount);
+            out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX MOST CLOSE"+mostCloserEnemy);
         }
 
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void onHitRobot(HitRobotEvent e) {
         // If he's in front of us, set back up and turn left a bit.
@@ -120,6 +153,7 @@ public class Doofy extends AdvancedRobot
     public void onWin(WinEvent e) {
         //dancar um pagodinho quando vencer!
         for (int i = 0; i < 50; i++) {
+            setTurnRadarRight(3800);
             turnRight(40);
             back(100);
             turnLeft(-80);
@@ -150,7 +184,7 @@ public class Doofy extends AdvancedRobot
         // Look before we turn when ahead() completes.
         peek = true;
         // Move up the wall.
-        ahead(moveAmount);
+        ahead(moveAmount/4);
         // Don't look now.
         peek = false;
         // Turn to the next wall.

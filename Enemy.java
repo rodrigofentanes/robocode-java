@@ -29,6 +29,8 @@ public class Enemy {
         this.energy = energy;
     }
 
+
+
     public static int enemyArrayPosition (int counter, int qtdEnemies){
         if(counter>=(qtdEnemies-1)){
             //Se cheio, volte para o primeiro vetor.
@@ -38,29 +40,39 @@ public class Enemy {
         return counter;
     }
 
+    public static boolean verifyExistence (Enemy[] obj, int counter,int enemies, String name){
+        obj[enemies-1] = new Enemy();
+        boolean exist = false;
+        //verificar da posicao counter para tras.
+        for (int i=0;i<counter-1;i++){
+            System.out.println("POINTER ENEMY NAME ------"+obj[i].getName());
+            System.out.println("ACTUAL ENEMY NAME ------"+name);
+            if(obj[i].getName()==name){
+                exist = true;
+            }
+        }
+        System.out.println("RETURN ---- "+exist);
+        return exist;
+    }
+
+    public static Enemy fillEnemyArray(Enemy[] obj, int counter,int enemies, String name, double distance, double energy){
+        obj[counter] = new Enemy();
+        obj[counter].setName(name);
+        obj[counter].setDistance(distance);
+        obj[counter].setEnergy(energy);
+        return obj[counter];
+    }
+
     public static String checkMostCloser(Enemy[] obj, int qtdEnemies, double maxAmount){
         String closerEnemy = null;
         obj[qtdEnemies-1] = new Enemy();
 
-
-//        System.out.println("dentro do check obj "+obj[qtdEnemies-1]+"\n");
         for (int i=0;i<qtdEnemies-1;i++){
-//            System.out.println("dentro do check obj FOR "+ obj[i].getDistance() + " aux: " + maxAmount+"\n");
             if(obj[i].getDistance() <= maxAmount){
-//                System.out.println("dentro do check ENTROU"+"\n");
                 closerEnemy = obj[i].getName();
             }
-//            System.out.println("dentro do check closerEnemy "+closerEnemy+"\n");
         }
         return closerEnemy;
-    }
-
-    public static Enemy fillEnemyArray(Enemy[] obj, int i, String name, double distance, double energy){
-        obj[i] = new Enemy();
-        obj[i].setName(name);
-        obj[i].setDistance(distance);
-        obj[i].setEnergy(energy);
-        return obj[i];
     }
 
 }
