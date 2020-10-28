@@ -15,14 +15,8 @@ public class Doofy extends AdvancedRobot
     //DOOFY -----------------------------------------------------------
     double mapWidth;
     double mapHeight;
-    int numberOfEnemies;
-    Enemy[] enemyList;
-    int countRadar;
     String hereIAm;
     String myZone;
-    String mostCloserEnemy;
-    boolean fullVector;
-    boolean existence;
     double oldEnemyHeading;
     //DOOFY **************************************************************
 
@@ -39,19 +33,9 @@ public class Doofy extends AdvancedRobot
         setRadarColor(new Color(68, 123, 213));
         setBulletColor(Color.cyan);
         setScanColor(Color.red);
-        // Definindo limite do mapa.
         mapWidth = getBattleFieldWidth();
         mapHeight = getBattleFieldHeight();
-        //Verifica quantidade de inimigos.
-        numberOfEnemies = getOthers();
-        //instanciando obj Enemy.
-        enemyList = new Enemy[numberOfEnemies];
-        enemyList[0] = null;
-        //inicia countRadar.
-        countRadar = -1;
-        //inicializar fullVector
-        fullVector = false;
-        double oldEnemyHeading=0;
+        double oldEnemyHeading = 0;
         //DOOFY **************************************************************
 
         //WALLS -----------------------------------------------------------
@@ -108,43 +92,10 @@ public class Doofy extends AdvancedRobot
         double theta = Utils.normalAbsoluteAngle(Math.atan2(
                 predictedX - getX(), predictedY - getY()));
 
-        setTurnRadarRightRadians(Utils.normalRelativeAngle(
-                absoluteBearing - getRadarHeadingRadians()));
-        setTurnGunRightRadians(Utils.normalRelativeAngle(
-                theta - getGunHeadingRadians()));
+        setTurnRadarRightRadians(Utils.normalRelativeAngle(absoluteBearing - getRadarHeadingRadians()));
+        setTurnGunRightRadians(Utils.normalRelativeAngle(theta - getGunHeadingRadians()));
         fire(3);
     }
-
-
-    public void aim( double radarHeadingRadians, double gunHeadingRadians){
-        double radarTurn = normalRelativeAngleDegrees(getHeadingRadians());
-        double gunTurn = normalRelativeAngleDegrees(getHeadingRadians());
-
-        setTurnRadarRightRadians(radarTurn);
-        setTurnGunRightRadians(gunTurn);
-    }
-
-
-    public static double normalRelativeAngleDegrees(double angle) {
-        return (angle %= 360.0D) >= 0.0D ? (angle < 180.0D ? angle : angle - 360.0D) : (angle >= -180.0D ? angle : angle + 360.0D);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public void onHitRobot(HitRobotEvent e) {
         // If he's in front of us, set back up and turn left a bit.
@@ -171,11 +122,8 @@ public class Doofy extends AdvancedRobot
         }
     }
 
-    public void onHitWall(HitWallEvent event) {
-    }
-
     public void onWin(WinEvent e) {
-        //dancar um pagodinho quando vencer!
+        //dancar um pagodinho quando vencer. :)
         for (int i = 0; i < 50; i++) {
             setTurnRadarRight(3800);
             turnRight(40);
@@ -187,6 +135,7 @@ public class Doofy extends AdvancedRobot
             ahead(100);
         }
     }
+
     //DOOFY BEHAVIORS -----------------------------------------------------------
     public void spiningBehavior (){
         setTurnLeft(180);
@@ -215,9 +164,4 @@ public class Doofy extends AdvancedRobot
         turnRight(90);
     }
     //DOOFY BEHAVIORS **************************************************************
-
-
-    //DOOFY DOCKER TO OWN CLASS -----------------------------------------------------------
-
-    //DOOFY DOCKER TO OWN CLASS **************************************************************
 }
