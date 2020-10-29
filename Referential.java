@@ -7,6 +7,7 @@ public class Referential {
     private static double width;
     private static double height;
 
+    // verificar posicionamento atual da tela
     public static String whereAmI(double x, double y, double width, double height){
         Referential.x = x;
         Referential.y = y;
@@ -30,6 +31,7 @@ public class Referential {
         return position;
     }
 
+    //Verificar zona atual
     public static String whatIsMyZone(double x, double y, double width, double height){
         Referential.x = x;
         Referential.y = y;

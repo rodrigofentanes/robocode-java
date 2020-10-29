@@ -112,6 +112,7 @@ public class Doofy extends AdvancedRobot
     }
 
     public void onHitByBullet(HitByBulletEvent event) {
+        //a depender do local, o robô se comportará de determinada forma.
         myZone = Referential.whatIsMyZone(getX(),getY(),mapWidth,mapHeight);
         if (myZone=="red"){
             turnRight(90);
