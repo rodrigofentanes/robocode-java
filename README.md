@@ -60,17 +60,18 @@ Utilizando um array de objetos, analisei os resultados obtidos pelo radar num pe
 
 ## Analise final
 Para a análise final decidi fazer uma pesquisa no GitLab dos outros participantes do desafio Talent Sprint de 2020, utilizando seus robôs e consequentemente seus códigos para verificar o desempenho de Doofy, observando assim as chances deste obter sucesso.
-Por fim, me diverti bastante tentando codificar um sistema que pudesse identificar todos os inimigos em volta e depois mirar no mais próximo, porém, dado o curto espaço de tempo, resolvi, em detrimento do aprendizado, aproveitar o código Circular Targeting da própria robowiki para mirar e atirar, e estou orgulhoso de ter conseguido desenvolver um pequeno sistema que analisa o posicionamento no mapa e com isso altera o comportamento do robô.
-O aproveitamento de Doofy nesta fase inicial também se mostrou satisfatória. Fiz duas simulações para verificar o desempenho de Doofy, uma de 100 rounds, pois havia muita queda de fps, e outra de 1000 rounds, igual a primeira, com os robôs que, na minha concepção, tinham os códigos mais limpos.
+Por fim, me diverti bastante tentando codificar um sistema que pudesse identificar todos os inimigos em volta e depois mirar no mais próximo, porém, dado o curto espaço de tempo, resolvi, em detrimento do aprendizado, aproveitar o código Circular Targeting da própria robowiki para mirar e atirar, e estou orgulhoso de ter conseguido desenvolver um pequeno sistema que analisa o posicionamento no mapa e com isso altera o comportamento do robô. Além disso aprendi muito sobre array de objetos, método Math do Java, Packager, encapsulamento, classes, etc. Ainda tenho muito o que aprender, mas me sinto grato por poder colocar em prática isso que eu amo fazer, que é programar.
+
+<strong>Nota:</strong> Durante este processo presenciei quedas de FPS, possivelmente causadas por má implementação de códigos e funções nos robôs presentes na arena. Fiz duas simulações para verificar o desempenho de Doofy, uma de 100 rounds, pois havia muita queda de fps, e outra de 1000 rounds, igual a primeira, com os robôs que, na minha concepção, tinham os códigos mais limpos. O aproveitamento de Doofy nesta fase final se mostrou satisfatório.
+
 <details>
 <summary>Ver Estatísticas finais:</summary>
 ![Estatística Final](img/finalStat/finalRec100.png)
-<br> <br>
+<br><br>
 ![Estatística Final](img/finalStat/finalRec1000.png)
 </details>
 <br>
 
-<strong>Nota:</strong> Durante este processo presenciei quedas de FPS, possivelmente causadas por má implementação de códigos e funções nos robôs presentes na arena.
 
 # Contribuições
 Este repositório está sendo avaliado por [Alex Gamas](https://gitlab.com/alexgamas)
