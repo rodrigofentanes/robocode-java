@@ -53,7 +53,7 @@ Utilizando um array de objetos, analisei os resultados obtidos pelo radar num pe
 
 <strong>Palpite:</strong> Esta característica vista acima pode significar que o objeto está se movimentando  na mesma velocidade do radar. Dessa forma o objeto fica registrado duplicadamente.
 
-<strong>Nota:</strong>  Após algumas linhas de código e muitos pedidos de resposta para o sistema, percebi que métodos iniciados com "set" funcionam em paralelo na memória, o que fornece fluidez para a movimentação do robô, porém pode gerar inconsistências nos dados obtidos por codificadores recém apresentados ao sistema do robocode, como eu. 
+<strong>Nota:</strong>  Após algumas passadas de olho na robowiki, muitas linhas de código e muitos pedidos de resposta para o sistema, percebi que métodos iniciados com "set" funcionam em paralelo na memória, o que fornece fluidez para a movimentação do robô, porém pode gerar inconsistências nos dados obtidos por codificadores recém apresentados ao sistema do robocode, como eu. 
 
 
 
