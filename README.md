@@ -32,21 +32,24 @@ Eu sei que parece piada, mas, dentro do contexto que irei apresentar neste docum
 A primeira analise de performance foi feita utilizando os robôs sample do próprio Robocode.
 Durante o processo percebi que dois robôs se destacavam à princípio, um deles pareceu meio tonto, ficava girando sem parar, aparentemente sem rumo, seu nome é "Spinbot".
 O outro praticamente não participava dos confrontos mais brutais porém se demonstrou muito eficaz em finalizar seus adiversários, este é o sample "Walls".
-Por fim, partindo deste princípio, decidi estudar os códigos e características deles dois para utilizar como fonte principal, mas não única, no desenvolvimento do robô Doofy.
+Partindo deste princípio, decidi estudar os códigos e características deles dois para utilizar como fonte principal, mas não única, no desenvolvimento do robô Doofy.
 
 <details>
-<summary>Estatísticas iniciais:</summary>
-<br>
-<br> ![Estatística 1](img/initStat/rec1.png) <br>
-<br> ![Estatística 2](img/finalStat/rec1.png) <br>
-
+<summary>Ver estatísticas inicial:</summary>
+![Estatística Inicial](img/initStat/initRec1000.png)
 </details>
- 
+<br> 
+
 <strong>Nota:</strong> Ao utilizar todos os sample robots ao mesmo tempo, não foi observado queda de FPS.
 
 ## Codificação
-Utilizando um array de objetos, analisei os resultados obtidos pelo radar num percurso de 360 graus. Muitas vezes, ao completar uma volta inteira, o radar trouxe resultados duplicados, vide imagem abaixo:
-<br> ![resultados repetidos](img/duplicidade-radar.png) <br>
+Utilizando um array de objetos, analisei os resultados obtidos pelo radar num percurso de 360 graus. Muitas vezes, ao completar uma volta inteira, o radar trouxe resultados duplicados
+
+<details>
+<summary>Ver imagem dos resultados:</summary>
+![resultados repetidos](img/duplicidade-radar.png)
+</details>
+<br>
 
 <strong>Palpite:</strong> Esta característica vista acima pode significar que o objeto está se movimentando  na mesma velocidade do radar. Dessa forma o objeto fica registrado duplicadamente.
 
@@ -57,9 +60,16 @@ Utilizando um array de objetos, analisei os resultados obtidos pelo radar num pe
 
 ## Analise final
 Para a análise final decidi fazer uma pesquisa no GitLab dos outros participantes do desafio Talent Sprint de 2020, utilizando seus robôs e consequentemente seus códigos para verificar o desempenho de Doofy, observando assim as chances deste obter sucesso.
-Por fim, me diverti bastante tentando codificar um sistema que pudesse identificar todos os inimigos em volta e depois mirar no mais próximo, porém, dado o curto espaço de tempo, resolvi, em detrimento do aprendizado, aproveitar o código Circular Targeting da própria robowiki para mirar e atirar, e estou orgulhoso de ter conseguido desenver um pequeno sistema que analisa o posicionamento no mapa e com isso altera o comportamento do robô.
+Por fim, me diverti bastante tentando codificar um sistema que pudesse identificar todos os inimigos em volta e depois mirar no mais próximo, porém, dado o curto espaço de tempo, resolvi, em detrimento do aprendizado, aproveitar o código Circular Targeting da própria robowiki para mirar e atirar, e estou orgulhoso de ter conseguido desenvolver um pequeno sistema que analisa o posicionamento no mapa e com isso altera o comportamento do robô.
+O aproveitamento de Doofy nesta fase inicial também se mostrou satisfatória. Fiz duas simulações para verificar o desempenho de Doofy, uma de 100 rounds, pois havia muita queda de fps, e outra de 1000 rounds, igual a primeira, com os robôs que, na minha concepção, tinham os códigos mais limpos.
+<details>
+<summary>Ver Estatísticas finais:</summary>
+![Estatística Final](img/finalStat/finalRec100.png)
+<br> <br>
+![Estatística Final](img/finalStat/finalRec1000.png)
+</details>
+<br>
 
-<br> <br> 
 <strong>Nota:</strong> Durante este processo presenciei quedas de FPS, possivelmente causadas por má implementação de códigos e funções nos robôs presentes na arena.
 
 # Contribuições
