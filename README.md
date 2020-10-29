@@ -11,17 +11,17 @@ Hoje, o mesmo pode ser utilizado tanto em Java quanto em .Net.
 ## Tecnologias utilizadas neste projeto
 ![Java version](https://img.shields.io/badge/Java-1.8.0__271-brightgreen) 
 ![Git version](https://img.shields.io/badge/Git-2.28.0-brightgreen)
+![Git version](https://img.shields.io/badge/robocode-1.9.3.9-brightgreen)
 
 ## Distributed Version-Control System
 O Git foi a tecnologia utilizada para gerenciar o repositório local deste projeto.
 
-<strong>Nota:</strong> Durante o decorrer do processo não houve necessidade de "3-way merges" apenas "Fast Forward Merges", mas, apesar de não precisar utilizar recursos interessantes como 3-way merge ou precisar resolver conflitos de versionamento mais complexos, eu pude colocar em dia o hábito de trabalhar com o Git.
+<strong>Nota:</strong> Durante o decorrer do processo não houve necessidade de "3-way merges" apenas "Fast Forward Merges", mas, apesar de não precisar utilizar recursos interessantes como 3-way merge ou precisar resolver conflitos mais complexos de versionamento, eu pude colocar em dia o hábito de trabalhar com o Git.
 
 ## Repository Hosting Service
 O GitLab foi o sistema escolhido para hospedagem do repositório remoto do nosso Robô Doofy.
  
-
-Eu nunca havia utilizado o GitLab anteriormente mas aparentemente ele possui caracteristicas interessantes como a possibilidade de configuração de CI, CD e integração aparentemente melhorada com o Kubernetes.
+<strong>Nota:</strong> Eu não havia utilizado o GitLab anteriormente, mas aparentemente ele possui características interessantes como a possibilidade de configuração de CI, CD e integração com o Kubernetes.
 
 # Robo Doofy
 O nome do Robo criado para este projeto é Doofy e se você pensou no personagem do filme "Todo mundo em pânico" você acertou na mosca! <br>
@@ -33,20 +33,34 @@ A primeira analise de performance foi feita utilizando os robôs sample do próp
 Durante o processo percebi que dois robôs se destacavam à princípio, um deles pareceu meio tonto, ficava girando sem parar, aparentemente sem rumo, seu nome é "Spinbot".
 O outro praticamente não participava dos confrontos mais brutais porém se demonstrou muito eficaz em finalizar seus adiversários, este é o sample "Walls".
 Por fim, partindo deste princípio, decidi estudar os códigos e características deles dois para utilizar como fonte principal, mas não única, no desenvolvimento do robô Doofy.
-<br> <br> Ao utilizar todos os sample robots ao mesmo tempo, não foi observado queda de FPS.
+
+<details>
+<summary>Estatísticas iniciais:</summary>
+<br>
+<br> ![Estatística 1](img/initStat/rec1.png) <br>
+<br> ![Estatística 2](img/finalStat/rec1.png) <br>
+
+</details>
+ 
+<strong>Nota:</strong> Ao utilizar todos os sample robots ao mesmo tempo, não foi observado queda de FPS.
 
 ## Codificação
 Utilizando um array de objetos, analisei os resultados obtidos pelo radar num percurso de 360 graus. Muitas vezes, ao completar uma volta inteira, o radar trouxe resultados duplicados, vide imagem abaixo:
 <br> ![resultados repetidos](img/duplicidade-radar.png) <br>
-Esta característica vista acima pode significar que o objeto esta se movimentando  na mesma velocidade do radar. Dessa forma o objeto fica registrado duplicadamente.
 
+<strong>Palpite:</strong> Esta característica vista acima pode significar que o objeto está se movimentando  na mesma velocidade do radar. Dessa forma o objeto fica registrado duplicadamente.
+
+<strong>Nota:</strong>  Após algumas linhas de código e muitos pedidos de resposta para o sistema, percebi que métodos iniciados com "set" funcionam em paralelo na memória, o que fornece fluidez para a movimentação do robô, porém pode gerar inconsistências nos dados obtidos por codificadores recém apresentados ao sistema do robocode, como eu. 
 
 
 
 
 ## Analise final
 Para a análise final decidi fazer uma pesquisa no GitLab dos outros participantes do desafio Talent Sprint de 2020, utilizando seus robôs e consequentemente seus códigos para verificar o desempenho de Doofy, observando assim as chances deste obter sucesso.
-<br> <br> Durante este processo presenciei quedas de FPS, possivelmente causadas por má implementação de códigos e funções nos robôs presentes na arena.
+Por fim, me diverti bastante tentando codificar um sistema que pudesse identificar todos os inimigos em volta e depois mirar no mais próximo, porém, dado o curto espaço de tempo, resolvi, em detrimento do aprendizado, aproveitar o código Circular Targeting da própria robowiki para mirar e atirar, e estou orgulhoso de ter conseguido desenver um pequeno sistema que analisa o posicionamento no mapa e com isso altera o comportamento do robô.
+
+<br> <br> 
+<strong>Nota:</strong> Durante este processo presenciei quedas de FPS, possivelmente causadas por má implementação de códigos e funções nos robôs presentes na arena.
 
 # Contribuições
 Este repositório está sendo avaliado por [Alex Gamas](https://gitlab.com/alexgamas)
